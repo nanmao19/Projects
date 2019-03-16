@@ -1,0 +1,51 @@
+{
+  "data":{
+    "patientinfo":{
+      "id":"40013217",
+      "date":"12-26-2018",
+      "uticoncern":"Yes"
+      },
+    "background":{
+      "incontinence":"Yes",
+      "uti6month":"Yes",
+      "uti6organism":"tstorg",
+      "uti6treatment":"testasdfasdf",
+      "diagnosis":"test active diagnosiss",
+      "directives":"test advance directives",
+      "penicillinallergy":"Yes",
+      "pyelonephritis":"Yes",
+      "prostatitis":"Yes"
+      },
+    "assessment":{
+      "vitals":{
+        "bplow":"90",
+        "bphigh":"120",
+        "hr":"54",
+        "resprate":"27",
+        "temp":"100",
+        "o2sats":"65"
+      },
+      "withindwelling":{},
+      "withoutindwelling":{
+        "criteria1":"Yes",
+        "dysuria":"Yes",
+        "scrotalTenderness":"Yes",
+        "criteria2":"Yes",
+        "frequencyCriteria2":"Yes",
+        "suprapubicCriteria2":"Yes",
+        "incontinenceCriteria2":"Yes",
+        "dementia":"Yes",
+        "criteria3":"Yes",
+        "urgencyCriteria3":"Yes",
+        "backpainCriteria3":"Yes",
+        "hematuriaCriteria3":"Yes"
+      },
+      "labs":{
+        "type": "UC",
+        "serumcreatinine":"1.3"
+      }
+    },
+    "recommendation": {},
+    "prescriptions":{}
+  }
+}

@@ -1,0 +1,38 @@
+version: '3'
+    
+services:
+  # webapp:
+    # build:
+      # context: ./
+      # dockerfile: ./AAMobile/Dockerfile
+    # volumes:
+    #   - './AAWebServices/static:/usr/src/app/shared'
+    #   # - 'myshare:/shared'
+    # healthcheck:
+    #   test: bash -c "[ -f /AAWebServices/static/app-release-unsigned.apk ]"
+    #   timeout: 10s
+    #   retries: 30
+  api:
+    build:
+      context: ./AAWebServices
+    ports:
+      - "5000:5000"
+    # restart: on-failure
+    depends_on:
+      - "redis"
+    volumes:
+    # #  - 'myshare:/usr/src/app/static'
+     - './AAWebServices/:/usr/src/app/'
+  redis:
+    image: "redislabs/rejson:latest"
+    # command: redis-server --appendonly yes
+    ports: 
+      - "6379:6379"
+    volumes:
+      - './local-storage:/data'
+# volumes:
+#   myshare:
+#     driver: local
+#     driver_opts:
+#       # type: bind
+#       device: /Users/Wooyong/repos

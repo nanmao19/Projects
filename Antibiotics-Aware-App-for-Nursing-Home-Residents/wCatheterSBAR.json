@@ -1,0 +1,47 @@
+{
+  "data":{
+    "patientinfo":{
+      "id":"40013239",
+      "date":"11-26-2018",
+      "uticoncern":"Yes"
+    },
+    "background":{
+      "indwelling catheter":"Yes",
+      "incontinence":"Yes",
+      "uti6month":"Yes",
+      "uti6organism":"test organism",
+      "uti6treatment":"test treatment",
+      "diagnosis":"test diagnosis",
+      "directives":"test directives",
+      "penicillinallergy":"Yes",
+      "pyelonephritis":"Yes",
+      "prostatitis":"Yes"
+      },
+    "assessment":{
+      "vitals":{
+        "bplow":"80",
+        "bphigh":"130",
+        "hr":"68",
+        "resprate":"34",
+        "temp":"98",
+        "o2sats":"25"
+      },
+      "withindwelling":{
+        "fever100repeat99":"Yes",
+        "backpain":"Yes",
+        "shakes":"Yes",
+        "delirium":"Yes",
+        "hypertension":"Yes",
+        "suprapubic":"Yes",
+        "scrotalswelling":"Yes"
+        },
+      "withoutindwelling":{},
+      "labs":{
+        "type": "UC",
+        "serumcreatinine":"0.9"
+      }
+    },
+    "recommendation": {},
+    "prescriptions":{}
+  }
+}

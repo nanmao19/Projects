@@ -1,0 +1,277 @@
+{
+	"data": [
+		{
+			"assessment": {
+				"labs": {
+					"serumcreatinine": "1.2",
+					"type": "UC"
+				},
+				"vitals": {
+					"bphigh": "120",
+					"bplow": "80",
+					"hr": "60",
+					"o2sats": "100",
+					"resprate": "30",
+					"temp": "97"
+				},
+				"withindwelling": {},
+				"withoutindwelling": {
+					"backpainCriteria2": "Yes",
+					"criteria1": "Yes",
+					"criteria2": "Yes",
+					"dementia": "Yes",
+					"frequencyCriteria2": "Yes",
+					"hematuriaCriteria2": "Yes",
+					"incontinenceCriteria2": "Yes",
+					"scrotalTenderness": "Yes",
+					"suprapubicCriteria2": "Yes",
+					"urgencyCriteria2": "Yes"
+				}
+			},
+			"background": {
+				"diagnosis": "kidney",
+				"directives": "once a day",
+				"incontinence": "yes",
+				"incontnew": "yes",
+				"penicillinallergy": "Yes",
+				"prostatitis": "Yes",
+				"pyelonephritis": "Yes",
+				"uti6month": "yes",
+				"uti6organism": "providencia",
+				"uti6treatment": "antibiotic"
+			},
+			"patientinfo": {
+				"age": 65,
+				"date": "11-16-2018",
+				"gender": "male",
+				"id": "200",
+				"name": "Ravi Tamada",
+				"uticoncern": "Yes"
+			},
+			"prescriptions": {},
+			"recommendations": {}
+		},
+		{
+			"assessment": {
+				"labs": {
+					"serumcreatinine": "1.4",
+					"type": "UC"
+				},
+				"vitals": {
+					"bphigh": "120",
+					"bplow": "80",
+					"hr": "60",
+					"o2sats": "100",
+					"resprate": "30",
+					"temp": "97"
+				},
+				"withindwelling": {
+					"backpain": "Yes",
+					"delirium": "Yes",
+					"fever100repeat99": "Yes",
+					"hypertension": "Yes",
+					"shakes": "Yes",
+					"suprapubic": "Yes"
+				},
+				"withoutindwelling": {}
+			},
+			"background": {
+				"diagnosis": "kidney",
+				"directives": "once a day",
+				"incontinence": "yes",
+				"incontnew": "yes",
+				"indwelling catheter": "yes",
+				"penicillinallergy": "Yes",
+				"pyelonephritis": "Yes",
+				"type": "urethral",
+				"uti6month": "yes",
+				"uti6organism": "providencia",
+				"uti6treatment": "antibiotic"
+			},
+			"patientinfo": {
+				"age": 67,
+				"date": "11-16-2018",
+				"gender": "female",
+				"id": "201",
+				"name": "Jane Smith",
+				"uticoncern": "Yes"
+			},
+			"prescriptions": {},
+			"recommendations": {}
+		},
+		{
+			"assessment": {
+				"labs": {
+					"serumcreatinine": "0.8",
+					"type": "UC"
+				},
+				"vitals": {
+					"bphigh": "120",
+					"bplow": "80",
+					"hr": "60",
+					"o2sats": "100",
+					"resprate": "30",
+					"temp": "97"
+				},
+				"withindwelling": {
+					"backpain": "Yes",
+					"delirium": "Yes",
+					"fever100repeat99": "Yes",
+					"hypertension": "Yes",
+					"scrotalswelling": "Yes",
+					"shakes": "Yes",
+					"suprapubic": "Yes"
+				},
+				"withoutindwelling": {}
+			},
+			"background": {
+				"diagnosis": "kidney",
+				"directives": "once a day",
+				"incontinence": "yes",
+				"incontnew": "yes",
+				"indwelling catheter": "yes",
+				"penicillinallergy": "Yes",
+				"prostatitis": "Yes",
+				"pyelonephritis": "Yes",
+				"type": "urethral",
+				"uti6month": "yes",
+				"uti6organism": "providencia",
+				"uti6treatment": "antibiotic"
+			},
+			"patientinfo": {
+				"age": 65,
+				"date": "11-16-2018",
+				"gender": "male",
+				"id": "202",
+				"name": "Wakaru Hosokawa",
+				"uticoncern": "Yes"
+			},
+			"prescriptions": {},
+			"recommendations": {}
+		},
+		{
+			"assessment": {
+				"labs": {
+					"serumcreatinine": "0.9",
+					"type": "UC"
+				},
+				"vitals": {
+					"bphigh": "120",
+					"bplow": "80",
+					"hr": "60",
+					"o2sats": "100",
+					"resprate": "30",
+					"temp": "97"
+				},
+				"withindwelling": {},
+				"withoutindwelling": {
+					"criteria3": "Yes",
+					"frequencyCriteria3": "Yes",
+					"hematuriaCriteria3": "Yes"
+				}
+			},
+			"background": {
+				"diagnosis": "kidney",
+				"directives": "once a day",
+				"incontinence": "yes",
+				"incontnew": "yes",
+				"indwelling catheter": "yes",
+				"prostatitis": "Yes",
+				"pyelonephritis": "Yes",
+				"type": "urethral",
+				"uti6month": "yes",
+				"uti6organism": "providencia",
+				"uti6treatment": "antibiotic"
+			},
+			"patientinfo": {
+				"age": 73,
+				"date": "11-16-2018",
+				"gender": "female",
+				"id": "204",
+				"name": "Ramiya Swaminathan",
+				"uticoncern": "Yes"
+			},
+			"prescriptions": {},
+			"recommendations": {}
+		},
+		{
+			"assessment": {
+				"labs": {
+					"serumcreatinine": "2.0",
+					"type": "UC"
+				},
+				"vitals": {
+					"bphigh": "120",
+					"bplow": "80",
+					"hr": "60",
+					"o2sats": "100",
+					"resprate": "30",
+					"temp": "97"
+				},
+				"withindwelling": {},
+				"withoutindwelling": {}
+			},
+			"background": {
+				"diagnosis": "kidney",
+				"directives": "once a day",
+				"incontinence": "yes",
+				"incontnew": "yes",
+				"indwelling catheter": "yes",
+				"type": "urethral",
+				"uti6month": "yes",
+				"uti6organism": "providencia",
+				"uti6treatment": "antibiotic"
+			},
+			"patientinfo": {
+				"age": 77,
+				"date": "11-16-2018",
+				"gender": "male",
+				"id": "210",
+				"name": "Sean Jakobson",
+				"uticoncern": "Yes"
+			},
+			"prescriptions": {},
+			"recommendations": {}
+		},
+		{
+			"assessment": {
+				"labs": {
+					"serumcreatinine": "0.8",
+					"type": "UC"
+				},
+				"vitals": {
+					"bphigh": "120",
+					"bplow": "80",
+					"hr": "60",
+					"o2sats": "100",
+					"resprate": "30",
+					"temp": "97"
+				},
+				"withindwelling": {},
+				"withoutindwelling": {}
+			},
+			"background": {
+				"diagnosis": "kidney",
+				"directives": "once a day",
+				"incontinence": "yes",
+				"incontnew": "yes",
+				"indwelling catheter": "yes",
+				"penicillinallergy": "Yes",
+				"type": "urethral",
+				"uti6month": "yes",
+				"uti6organism": "providencia",
+				"uti6treatment": "antibiotic"
+			},
+			"patientinfo": {
+				"age": 72,
+				"date": "11-16-2018",
+				"gender": "female",
+				"id": "310",
+				"name": "Michelle Chu",
+				"uticoncern": "Yes"
+			},
+			"prescriptions": {},
+			"recommendations": {}
+		}
+	]
+}

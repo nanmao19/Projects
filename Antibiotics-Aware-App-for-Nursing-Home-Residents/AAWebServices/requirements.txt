@@ -1,0 +1,4 @@
+flask
+redis==2.10.5
+six
+rejson==0.2.1
