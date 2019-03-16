@@ -1,0 +1,58 @@
+JUnit version 4.12
+...E...................E.E.E.E..E.E.E..E..E..
+Time: 0.071
+There were 10 failures:
+1) encodeTest12(edu.gatech.seclass.encode.MyMainTest)
+edu.gatech.seclass.encode.SDPBugException: You found Bug #8. 
+Arguments used: [-d, ll, /var/folders/5t/3qgvnfpd3qj03wcwt6t9__h40000gn/T/junit1031007794856580757/junit3668297152922783578.tmp]
+File: hello 
+Encode result: throws a StringIndexOutOfBoundsException
+2) encodeTest31(edu.gatech.seclass.encode.MyMainTest)
+edu.gatech.seclass.encode.SDPBugException: You found Bug #9. 
+Arguments used: [a, /var/folders/5t/3qgvnfpd3qj03wcwt6t9__h40000gn/T/junit15158120499387837110/junit5690706780438511408.tmp]
+File: abc $XYZ 
+Encode result: $XYZ abc
+3) encodeTest32(edu.gatech.seclass.encode.MyMainTest)
+edu.gatech.seclass.encode.SDPBugException: You found Bug #5. 
+Arguments used: [/var/folders/5t/3qgvnfpd3qj03wcwt6t9__h40000gn/T/junit7414666292407695729/junit17883714760270021047.tmp]
+File: abc $XYZ 
+Encode result: ijk $Fab
+4) encodeTest33(edu.gatech.seclass.encode.MyMainTest)
+edu.gatech.seclass.encode.SDPBugException: You found Bug #10. 
+Arguments used: [-c, /var/folders/5t/3qgvnfpd3qj03wcwt6t9__h40000gn/T/junit4757174512853569067/junit7154471117125701916.tmp]
+File: n/a 
+Encode result: throws a StringIndexOutOfBoundsException
+5) encodeTest34(edu.gatech.seclass.encode.MyMainTest)
+edu.gatech.seclass.encode.SDPBugException: You found Bug #1. 
+Arguments used: [-c, , /var/folders/5t/3qgvnfpd3qj03wcwt6t9__h40000gn/T/junit14709577216421969117/junit73645273486711073.tmp]
+File: n/a 
+Encode result: throws a NumberFormatException
+6) encodeTest1(edu.gatech.seclass.encode.MyMainTest)
+edu.gatech.seclass.encode.SDPBugException: You found Bug #3. 
+Arguments used: [/var/folders/5t/3qgvnfpd3qj03wcwt6t9__h40000gn/T/junit5411374316042704882/junit968818741876429187.tmp]
+File:  
+Encode result: throws a StringIndexOutOfBoundsException
+7) encodeTest2(edu.gatech.seclass.encode.MyMainTest)
+edu.gatech.seclass.encode.SDPBugException: You found Bug #2. 
+Arguments used: [-d, , /var/folders/5t/3qgvnfpd3qj03wcwt6t9__h40000gn/T/junit11077960268092031364/junit3993959575558705008.tmp]
+File: n/a 
+Encode result: throws a StringIndexOutOfBoundsException
+8) encodeTest3(edu.gatech.seclass.encode.MyMainTest)
+edu.gatech.seclass.encode.SDPBugException: You found Bug #8. 
+Arguments used: [-d, hello, /var/folders/5t/3qgvnfpd3qj03wcwt6t9__h40000gn/T/junit2425967700401828892/junit4464726022816454418.tmp]
+File: hello 
+Encode result: throws a StringIndexOutOfBoundsException
+9) encodeTest5(edu.gatech.seclass.encode.MyMainTest)
+edu.gatech.seclass.encode.SDPBugException: You found Bug #7. 
+Arguments used: [-d, A, /var/folders/5t/3qgvnfpd3qj03wcwt6t9__h40000gn/T/junit8365575740644403633/junit6472959089397942419.tmp]
+File: abc $XYZ 
+Encode result: abc $XYZ
+10) encodeTest7(edu.gatech.seclass.encode.MyMainTest)
+edu.gatech.seclass.encode.SDPBugException: You found Bug #4. 
+Arguments used: [-c, 0, /var/folders/5t/3qgvnfpd3qj03wcwt6t9__h40000gn/T/junit6143474266089798633/junit1162588451814595671.tmp]
+File: abc $XYZ 
+Encode result: bcd $YZA
+
+FAILURES!!!
+Tests run: 35,  Failures: 10
+
