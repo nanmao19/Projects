@@ -1,0 +1,532 @@
+---
+title: 'Project 2: Modeling and Evaluation'
+subtitle: |-
+  CSE6242 - Data and Visual Analytics - Fall 2017
+  Due: Sunday, November 26, 2017 at 11:59 PM UTC-12:00 on T-Square
+output:
+  html_notebook:
+    code_folding: none
+    theme: default
+  html_document:
+    code_folding: none
+    theme: default
+  pdf_document: default
+---
+
+# Data
+
+We will use the same dataset as Project 1: [`movies_merged`](https://s3.amazonaws.com/content.udacity-data.com/courses/gt-cs6242/project/movies_merged).
+
+# Objective
+
+Your goal in this project is to build a linear regression model that can predict the `Gross` revenue earned by a movie based on other variables. You may use R packages to fit and evaluate a regression model (no need to implement regression yourself). Please stick to linear regression, however.
+
+# Instructions
+
+You should be familiar with using an [RMarkdown](http://rmarkdown.rstudio.com) Notebook by now. Remember that you have to open it in RStudio, and you can run code chunks by pressing *Cmd+Shift+Enter*.
+
+Please complete the tasks below and submit this R Markdown file (as **pr2.Rmd**) containing all completed code chunks and written responses, and a PDF export of it (as **pr2.pdf**) which should include the outputs and plots as well.
+
+_Note that **Setup** and **Data Preprocessing** steps do not carry any points, however, they need to be completed as instructed in order to get meaningful results._
+
+# Setup
+
+Same as Project 1, load the dataset into memory:
+
+```{r}
+load('movies_merged')
+```
+
+This creates an object of the same name (`movies_merged`). For convenience, you can copy it to `df` and start using it:
+
+```{r}
+df = movies_merged
+cat("Dataset has", dim(df)[1], "rows and", dim(df)[2], "columns", end="\n", file="")
+colnames(df)
+```
+
+## Load R packages
+
+Load any R packages that you will need to use. You can come back to this chunk, edit it and re-run to load any additional packages later.
+
+```{r}
+library(ggplot2)
+```
+
+If you are using any non-standard packages (ones that have not been discussed in class or explicitly allowed for this project), please mention them below. Include any special instructions if they cannot be installed using the regular `install.packages('<pkg name>')` command.
+
+**Non-standard packages used**: None
+
+# Data Preprocessing
+
+Before we start building models, we should clean up the dataset and perform any preprocessing steps that may be necessary. Some of these steps can be copied in from your Project 1 solution. It may be helpful to print the dimensions of the resulting dataframe at each step.
+
+## 1. Remove non-movie rows
+
+```{r}
+# TODO: Remove all rows from df that do not correspond to movies
+df1 <- df[df$Type=="movie",]
+nrow(df1)
+```
+
+## 2. Drop rows with missing `Gross` value
+
+Since our goal is to model `Gross` revenue against other variables, rows that have missing `Gross` values are not useful to us.
+
+```{r}
+# TODO: Remove rows with missing Gross value
+df2 <- df1[!is.na(df1$Gross),]
+nrow(df2)
+```
+
+## 3. Exclude movies released prior to 2000
+
+Inflation and other global financial factors may affect the revenue earned by movies during certain periods of time. Taking that into account is out of scope for this project, so let's exclude all movies that were released prior to the year 2000 (you may use `Released`, `Date` or `Year` for this purpose).
+
+```{r}
+# TODO: Exclude movies released prior to 2000
+df3 <- df2[!is.na(df2$Released),]
+df3 <- df3[as.numeric(format(df3$Released, "%Y")) >= 2000,]
+nrow(df3)
+```
+
+## 4. Eliminate mismatched rows
+
+_Note: You may compare the `Released` column (string representation of release date) with either `Year` or `Date` (numeric representation of the year) to find mismatches. The goal is to avoid removing more than 10% of the rows._
+
+```{r}
+# TODO: Remove mismatched rows
+count = 0
+for(n in seq(1, nrow(df3), by=1)){
+  if(!is.na(df3$Year[n]) && as.numeric(format(df3$Released[n], "%Y")) != df3$Year[n]){
+    if(!is.na(df3$Date[n]) && as.numeric(format(df3$Released[n], "%Y")) != df3$Date[n]){
+      df3 <- df3[-c(n),]
+      count = count +1
+    }
+  }
+  n = n + 1
+}
+df4 <- df3
+nrow(df4)
+print(count)
+library('scales')
+print(percent(count/(count+nrow(df3))))
+```
+
+## 5. Drop `Domestic_Gross` column
+
+`Domestic_Gross` is basically the amount of revenue a movie earned within the US. Understandably, it is very highly correlated with `Gross` and is in fact equal to it for movies that were not released globally. Hence, it should be removed for modeling purposes.
+
+```{r}
+# TODO: Exclude the `Domestic_Gross` column
+p <- which(names(df4)=="Domestic_Gross")
+print(p)
+df5 <- df4[-c(p)]
+```
+
+## 6. Process `Runtime` column
+
+```{r}
+# TODO: Replace df$Runtime with a numeric column containing the runtime in minutes
+df5$Runtime <-replace(df5$Runtime, which(df5$Runtime == "N/A"), NA)
+df6 <- df5[complete.cases(df5$Runtime),]
+nrow(df5)
+for (n in seq(1, nrow(df6), by = 1)) {
+  a <- strsplit(df6$Runtime[n], " ")
+  if (length(unlist(a)) == 2)
+  {
+    df6$Runtime.new[n] <- as.integer(as.character(a[[1]][1]))
+  }
+  if (length(unlist(a)) == 4)
+  {
+    df6$Runtime.new[n] <- as.integer(as.character(a[[1]][1])) * 60 +
+      as.integer(as.character(a[[1]][3]))
+  }
+  n = n + 1
+}
+```
+
+Perform any additional preprocessing steps that you find necessary, such as dealing with missing values or highly correlated columns (feel free to add more code chunks, markdown blocks and plots here as necessary).
+
+```{r}
+# TODO(optional): Additional preprocessing
+```
+
+_**Note**: Do NOT convert categorical variables (like `Genre`) into binary columns yet. You will do that later as part of a model improvement task._
+
+## Final preprocessed dataset
+
+Report the dimensions of the preprocessed dataset you will be using for modeling and evaluation, and print all the final column names. (Again, `Domestic_Gross` should not be in this list!)
+
+```{r}
+# TODO: Print the dimensions of the final preprocessed dataset and column names
+dim(df6)
+names(df6)
+```
+
+# Evaluation Strategy
+
+In each of the tasks described in the next section, you will build a regression model. In order to compare their performance, you will compute the training and test Root Mean Squared Error (RMSE) at different training set sizes.
+
+First, randomly sample 10-20% of the preprocessed dataset and keep that aside as the **test set**. Do not use these rows for training! The remainder of the preprocessed dataset is your **training data**.
+
+Now use the following evaluation procedure for each model:
+
+- Choose a suitable sequence of training set sizes, e.g. 10%, 20%, 30%, ..., 100% (10-20 different sizes should suffice). For each size, sample that many inputs from the training data, train your model, and compute the resulting training and test RMSE.
+- Repeat your training and evaluation at least 10 times at each training set size, and average the RMSE results for stability.
+- Generate a graph of the averaged train and test RMSE values as a function of the train set size (%), with optional error bars.
+
+You can define a helper function that applies this procedure to a given set of features and reuse it.
+
+# Tasks
+
+Each of the following tasks is worth 20 points, for a total of 100 points for this project. Remember to build each model as specified, evaluate it using the strategy outlined above, and plot the training and test errors by training set size (%).
+
+## 1. Numeric variables
+
+Use Linear Regression to predict `Gross` based on available _numeric_ variables. You can choose to include all or a subset of them.
+
+```{r}
+# TODO: Build & evaluate model 1 (numeric variables only)
+#install.packages("Metrics") # to run rmse() function
+library('Metrics')
+index1 <- sample(1:nrow(df6), as.integer(0.2 * nrow(df6))) #20% of randomly selected
+test1.df <- df6[index1, ]
+training1.df <- df6[-index1, ]
+rmse.res1 <- rep(0,10)
+m = 1
+size <- seq(0.1, 1, by= 0.1)
+for(n in size){
+  training_size <- sample(1:nrow(training1.df), as.integer(n * nrow(training1.df)))
+  md1 <- lm(Gross ~ Year + Budget + Runtime.new, training1.df[training_size, ])
+  pred1 <- predict(md1, test1.df)
+  rmse.res1[m] <- sqrt(mean((test1.df$Gross-pred1)^2))
+  m = m + 1
+  n = n + 0.1
+}
+print(rmse.res1)
+avr.rmse1 <- sum(rmse.res1)/10
+print(avr.rmse1)
+myData1 <- data.frame(rmse.res1, size)
+print(min(myData1$rmse.res1[]))
+
+p1 <- ggplot(myData1, aes(x=size, y=rmse.res1)) + 
+      geom_point() + geom_smooth(method = "loess", se=F, span=0.5)+ xlim(0,1)
+print(p1)
+```
+
+**Q**: List the numeric variables you used.
+
+**A**: Year + Budget + Runtime
+
+
+**Q**: What is the best mean test RMSE value you observed, and at what training set size?
+
+**A**: the best RMSE is 112103998 with 50% of trainging dataset.
+
+
+## 2. Feature transformations
+
+Try to improve the prediction quality from **Task 1** as much as possible by adding feature transformations of the numeric variables. Explore both numeric transformations such as power transforms and non-numeric transformations of the numeric variables like binning (e.g. `is_budget_greater_than_3M`).
+
+```{r}
+# TODO: Build & evaluate model 2 (transformed numeric variables only)
+ggplot(df6, aes(x=Budget, y=Gross))+geom_point()+geom_smooth(se=F)
+ggplot(df6, aes(x=(Budget)^2, y=Gross))+geom_point()+geom_smooth(se=F)
+Budget2 <- (df6$Budget)^2
+df8 <- cbind(df6, Budget2)
+df8 <- df8[df8$Runtime.new<=120, ]
+df8 <- df8[df8$Runtime.new>=90, ]
+
+index2 <- sample(1:nrow(df8), as.integer(0.2 * nrow(df8))) #20% of randomly selected
+test2.df <- df8[index2, ]
+training2.df <- df8[-index2, ]
+rmse.res2 <- rep(0,10)
+m = 1
+size <- seq(0.1, 1, by= 0.1)
+for(n in size){
+  training_size <- sample(1:nrow(training2.df), as.integer(n * nrow(training2.df)))
+  md2 <- lm(Gross ~ Year + Budget + Runtime.new + Budget2, training2.df[training_size, ])
+  pred2 <- predict(md2, test2.df)
+  rmse.res2[m] <- sqrt(mean((test2.df$Gross-pred2)^2))
+  m = m + 1
+  n = n + 0.1
+}
+print(rmse.res2)
+avr.rmse2 <- sum(rmse.res2)/10
+print(avr.rmse2)
+myData2 <- data.frame(rmse.res2, size)
+print(min(myData2$rmse.res2[]))
+p2 <- ggplot(myData2, aes(x=size, y=rmse.res2)) + 
+     geom_point() + geom_smooth(method = "loess", se=F, span=0.5)+ xlim(0,1)
+print(p2)
+```
+
+**Q**: Explain which transformations you used and why you chose them.
+
+**A**: I use power of Budget and runtime of movie between 90 mins and 120 mins. 
+I plot Gross VS Budget and Gross VS Budget^2. From the two plots, I find Gross has almost linear relationship between Budget^2. So, I choose power of Budget as a new variable to build model 2. Also, I set extract Runtime between 90 mins to 120 mins, which is the normal length of movies, as a new variable adding to model. 
+
+**Q**: How did the RMSE change compared to Task 1?
+
+**A**: The results from model 1 in Task 1 and model 2 in Task 2 showed, both the average of RMSE and the best RMSE decreased in model 2. This means the model 2 better predict than model 1. 
+
+
+## 3. Non-numeric variables
+
+Write code that converts genre, actors, directors, and other categorical variables to columns that can be used for regression (e.g. binary columns as you did in Project 1). Also process variables such as awards into more useful columns (again, like you did in Project 1). Now use these converted columns only to build your next model.
+
+```{r}
+# TODO: Build & evaluate model 3 (converted non-numeric variables only)
+
+df7 <- df6[c("Gross", "Awards", "tomatoImage", "Genre", "Budget", "Year", "Runtime", "Runtime.new")]
+df7 <- na.omit(df7)
+
+# process "tomatoImage"" column
+level.tomatoImage <- unique(df7$tomatoImage)
+print(level.tomatoImage)
+print(length(level.tomatoImage))
+for (m in seq(1, nrow(df7), by = 1)) {
+  df7$level.tomatoImage[[m]] <- 1* level.tomatoImage %in% df7$tomatoImage[m]
+  m = m + 1
+}
+# generate a new column "tomato" for bining results
+a <- df7$level.tomatoImage
+b <- data.frame(t(matrix(unlist(a), nrow = length(level.tomatoImage))))
+colnames(b) <- level.tomatoImage
+df7 <- cbind(df7,b)
+
+# process "Genre" column
+d <- strsplit(df7$Genre, ", ")
+level.genre <- unique(unlist(d))
+print(level.genre)
+print(length(level.genre))
+for (m in seq(1, nrow(df7), by = 1)) {
+  df7$Genre.new[[m]] <- 1* level.genre %in% unlist(d[m])
+  m = m + 1
+}
+# generate a new column "Genre.new" for bining results
+a <- df7$Genre.new
+b <- data.frame(t(matrix(unlist(a), nrow = length(level.genre))))
+colnames(b) <- level.genre
+df7 <- cbind(df7,b)
+# generate new columns for each Genre
+
+# process "Awards" column
+NAs <- df7$Awards =="N/A"
+df7$Awards[NAs] <- NA
+df7 <- df7[complete.cases(df7$Awards),]
+nrow(df7)
+#install.packages('stringr') # to use str_extract() function
+#library(stringr)
+#library(stringi)
+winOnly <- str_extract(df7$Awards,"(^[0-9]+) wins*\\.")
+df7$Wins1 <- 0
+df7$Wins1 <- as.numeric(str_extract_all(winOnly, "[0-9]+"))
+#case 1 - for wins only - extract numbers and put them into Wins column
+nominOnly <- str_extract(df7$Awards,"(^[0-9]+) nomination.*")
+df7$Nominations1 <- 0
+df7$Nominations1 <- as.numeric(str_extract_all(nominOnly, "[0-9]+"))
+#case 2 - nominations only - extract numbers and put them into Nominations column
+winAndNomin <- str_extract(df7$Awards, "(^[0-9]+) win.* & [0-9]+ nomination.*")
+winAndNomin_extracted <- str_extract_all(winAndNomin, "[0-9]+")
+for(m in seq(1, nrow(df7), by=1)){
+  #if(!is.na(winAndNomin_extracted[[m]]))
+    {
+    df7$Wins2[m] <- as.numeric(winAndNomin_extracted[[m]][1])
+    df7$Nominations2[m] <- as.numeric(winAndNomin_extracted[[m]][2])
+  }
+  m = m+1
+}
+#case 3 - wins and nominations - extract numbers 
+#put them into Wins and Nominations columns correspondingly
+xx = str_extract(df7$Awards, ".*Another.*")
+#case 4 - for special honors awards
+comb_extracted <- str_extract_all(xx, "[0-9]+")
+for(m in seq(1, nrow(df7), by = 1)) {
+  z <- stri_extract_all(xx[m], regex = "\\d+", simplify = TRUE)
+  #extract numbers from string. length(z) may be 3, 2, or 1
+  p <- str_count(xx[m], fixed("omina"))
+  #count nomination or nominated. p may be 2, 1 or 0
+  if (length(z) == 3) {
+    if (p == 2) {
+      df7$Wins3[1] <- 0
+      df7$Wins3[m] <- as.numeric(comb_extracted[[m]][2])
+      df7$Nominations3[1] <- 0
+      df7$Nominations3[m] <-
+          as.numeric(comb_extracted[[m]][1]) + as.numeric(comb_extracted[[m]][3])
+    }
+    else {#Won 1 Golden Globe. Another 5 wins & 7 nominations.
+      df7$Wins4[1] <- 0
+      df7$Wins4[m] <-
+          as.numeric(comb_extracted[[m]][1]) + as.numeric(comb_extracted[[m]][2])
+      df7$Nominations4[1] <- 0
+      df7$Nominations4[m] <- as.numeric(comb_extracted[[m]][3])
+    }
+  }
+  if (length(z) == 2) {
+    if (p == 2) {
+      df7$Nominations5[1] <- 0
+      df7$Nominations5[m] <-
+          as.numeric(comb_extracted[[m]][1]) + as.numeric(comb_extracted[[m]][2])
+    }
+    else if (p == 1) {
+      if (grepl("win", xx[m])) {
+        df7$Wins5[1] <- 0
+        df7$Wins5[m] <- as.numeric(comb_extracted[[m]][2])
+        df7$Nominations6[1] <- 0
+        df7$Nominations6[m] <- as.numeric(comb_extracted[[m]][1])
+      }
+      else{
+        df7$Wins6[1] <- 0
+        df7$Wins6[m] <- as.numeric(comb_extracted[[m]][1])
+        df7$Nominations7[1] <- 0
+        df7$Nominations7[m] <- as.numeric(comb_extracted[[m]][2])
+      }
+    }
+    else{
+      df7$Wins7[1] <- 0
+      df7$Wins7[m] <-
+      as.numeric(comb_extracted[[m]][1]) + as.numeric(comb_extracted[[m]][2])
+    }
+  }
+  m = m + 1
+}
+#install.packages("base")#to use rowSums() function
+#library(base)
+df7$Wins <- rowSums(cbind(df7$Wins1, df7$Wins2, df7$Wins3, df7$Wins4, df7$Wins5, df7$Wins6, df7$Wins7), na.rm = TRUE)
+df7$Nominations <- rowSums(cbind(df7$Nominations1, df7$Nominations2, df7$Nominations3, df7$Nominations4, df7$Nominations5, df7$Nominations6, df7$Nominations7), na.rm = TRUE)
+
+
+# build model 3
+index3 <- sample(1:nrow(df7), as.integer(0.2 * nrow(df7))) #20% of randomly selected
+test3.df <- df7[index3, ]
+training3.df <- df7[-index3, ]
+rmse.res3 <- rep(0,10)
+m = 1
+size <- seq(0.1, 1, by= 0.1)
+for(n in size){
+  training_size <- sample(1:nrow(training3.df), as.integer(n * nrow(training3.df)))
+  md3 <- lm(Gross ~ Wins + Nominations + rotten + certified + fresh + Horror + Adventure + Comedy + Family + Crime + Music + Drama + Mystery + Thriller + Romance + Sport + Fantasy + Action + Documentary + Biography + History + Animation + Musical + Western, training3.df[training_size, ])
+  pred3 <- predict(md3, test3.df)
+  rmse.res3[m] <- sqrt(mean((test3.df$Gross-pred3)^2))
+  m = m + 1
+  n = n + 0.1
+}
+print(rmse.res3)
+avr.rmse3 <- sum(rmse.res3)/10
+print(avr.rmse3)
+print(min(rmse.res3))
+myData3 <- data.frame(rmse.res3, size)
+p3 <- ggplot(myData3, aes(x=size, y=rmse.res3)) + 
+     geom_point() + geom_smooth(method = "loess", se=F, span=0.5)+ xlim(0,1)
+print(p3)
+```
+
+**Q**: Explain which categorical variables you used, and how you encoded them into features.
+
+**A**: I use Wins and Nominations, which are splitted from "Awards" and rotten and certified, which are splitted from "tomatoImage". I split the each "Awards" cell and extract the number of Wins and Nominations as I did in project 1 for each case. And then sum of the Wins and Nominations as two columns to use in model. Also I split the "tomatoImage" column into 4 new columns: "rotten", "fresh", "N/A" and "certified" using bining method. And use "rotten", "certified" and "fresh" columns adding to the model. Finally, I split the genre column to 24 different type of Genre columns and add them into the model.
+
+
+**Q**: What is the best mean test RMSE value you observed, and at what training set size? How does this compare with Task 2?
+
+**A**: I observed the best RMSE value 196353192 at 60% of training size, which is higher than the best RMSE value found in Task 2. It means this model doesnot predict better compare to model 2. 
+
+
+## 4. Numeric and categorical variables
+
+Try to improve the prediction quality as much as possible by using both numeric and non-numeric variables from **Tasks 2 & 3**.
+
+```{r}
+# TODO: Build & evaluate model 4 (numeric & converted non-numeric variables)
+Budget2 <- (df7$Budget)^2
+df9 <- cbind(df7, Budget2)
+df9 <- df9[df9$Runtime.new<=120, ]
+df9 <- df9[df9$Runtime.new>=90, ]
+
+index4 <- sample(1:nrow(df9), as.integer(0.2 * nrow(df9))) #20% of randomly selected
+test4.df <- df9[index4, ]
+training4.df <- df9[-index4, ]
+rmse.res4 <- rep(0,10)
+m = 1
+size <- seq(0.1, 1, by= 0.1)
+for(n in size){
+  training_size <- sample(1:nrow(training4.df), as.integer(n * nrow(training4.df)))
+  md4 <- lm(Gross ~ Year + Budget + Runtime.new + Budget2 + Wins + Nominations + rotten + certified + fresh + Horror + Adventure + Comedy + Family + Crime + Music + Drama + Mystery + Thriller + Romance + Sport + Fantasy + Action + Documentary + Biography + History + Animation + Musical + Western, training4.df[training_size, ])
+  pred4 <- predict(md4, test4.df)
+  rmse.res4[m] <- sqrt(mean((test4.df$Gross-pred4)^2))
+  m = m + 1
+  n = n + 0.1
+}
+print(rmse.res4)
+avr.rmse4 <- sum(rmse.res4)/10
+print(avr.rmse4)
+myData4 <- data.frame(rmse.res4, size)
+print(min(myData4$rmse.res4[]))
+p4 <- ggplot(myData4, aes(x=size, y=rmse.res4)) + 
+     geom_point() + geom_smooth(method = "loess", se=F, span=0.5)+ xlim(0,1)
+print(p4) 
+```
+```
+
+**Q**: Compare the observed RMSE with Tasks 2 & 3.
+
+**A**:                                                                        
+       Average RMSE from Task 4:84246109      Best RMSE from Task 4:80909780
+
+       Average RMSE from Task 3:201971896     Best RMSE from Task 3:196353192
+       
+       Average RMSE from Task 2:87178502      Best RMSE from Task 2:86616736
+       
+       From the results above I can see that model 4 best predict the future data than model 2 and model 3.
+
+
+## 5. Additional features
+
+Now try creating additional features such as interactions (e.g. `is_genre_comedy` x `is_budget_greater_than_3M`) or deeper analysis of complex variables (e.g. text analysis of full-text columns like `Plot`).
+
+```{r}
+```{r}
+# TODO: Build & evaluate model 5 (numeric, non-numeric and additional features)
+Budet.new <- df7$Budget > 8500000
+Budet.new[Budet.new=="TRUE"] <- 1
+df10 <- cbind(df7, Budet.new)
+Drama.Budet.new <- df10$Budet.new * df10$Drama
+df10 <- cbind(df10, Drama.Budet.new)
+df10 <- df10[df10$Runtime.new > 90,]
+df10 <- df10[df10$Runtime.new < 120,]
+
+index5 <- sample(1:nrow(df10), as.integer(0.2 * nrow(df10))) #20% of randomly selected
+test5.df <- df10[index5, ]
+training5.df <- df10[-index5, ]
+rmse.res5 <- rep(0,10)
+m = 1
+size <- seq(0.1, 1, by= 0.1)
+for(n in size){
+  training_size <- sample(1:nrow(training5.df), as.integer(n * nrow(training5.df)))
+  md5 <- lm(Gross ~ Year + Budget + Runtime.new + Wins + Nominations + rotten + certified + fresh + Horror + Adventure + Comedy + Family + Crime + Music + Drama + Mystery + Thriller + Romance + Sport + Fantasy + Action + Documentary + Biography + History + Animation + Musical + Western + Drama.Budet.new, training5.df[training_size, ])
+  pred5 <- predict(md5, test5.df)
+  rmse.res5[m] <- sqrt(mean((test5.df$Gross-pred5)^2))
+  m = m + 1
+  n = n + 0.1
+}
+print(rmse.res5)
+avr.rmse5 <- sum(rmse.res5)/10
+print(avr.rmse5)
+myData5 <- data.frame(rmse.res5, size)
+print(min(myData5$rmse.res5[]))
+p5 <- ggplot(myData5, aes(x=size, y=rmse.res5)) + 
+     geom_point() + geom_smooth(method = "loess", se=F, span=0.5)+ xlim(0,1)
+print(p5)
+```
+
+
+**Q**: Explain what new features you designed and why you chose them.
+
+**A**: I add a new festure, which is "(Genre = Drama) x (Budget > 8.5M)". I choose "Drama" because from the project 1 I found Drama is the most popular Genre of movie in this dataframe. And 8.5M of Budget is the 1st Quantitle of the Budget column. So, I add the new feature to see how the Drama movies which have more than 8.5M dollars budgets effect the prediction. 
+
+
+**Q**: Comment on the final RMSE values you obtained, and what you learned through the course of this project.
+
+**A**:The RMSE results showed on Task 5 is not as good as Task 4. It makes sense because the new feature added in Task 5 pay too much attention on specific details by overfitting the data. Those specifics will not improve the prediction for future data. 
+
