@@ -1,16 +1,5 @@
 ---
 title: 'Project 2: Modeling and Evaluation'
-subtitle: |-
-  CSE6242 - Data and Visual Analytics - Fall 2017
-  Due: Sunday, November 26, 2017 at 11:59 PM UTC-12:00 on T-Square
-output:
-  html_notebook:
-    code_folding: none
-    theme: default
-  html_document:
-    code_folding: none
-    theme: default
-  pdf_document: default
 ---
 
 # Data
