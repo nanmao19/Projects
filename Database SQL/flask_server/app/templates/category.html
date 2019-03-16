@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- based on example here: https://codepen.io/juff03/pen/OXaXRG -->
+<div class="container">
+  <form class="well form-horizontal" action="{{ url_for('register') }}" method="post"  id="contact_form">
+    <fieldset>
+
+      <!-- Form Name -->
+      <legend><center><h2><b>Category Report</b></h2></center></legend><br>
+
+      <!-- Text input-->
+
+      <div class="row">
+        <label class="col-md-4 control-label">Category Name: {{categoryname}}</label>
+      </div>
+
+      {% for item in items %}
+      <div class="well">
+        <div class="row">
+            <h4>Item Name: {{ item[2] }}</h4>
+            <p>Description: {{ item[1] }}</p>
+            <p>Condition: {{ item[3] }}</p>
+            <p>Auction won by: {{ item[4] }}</p>
+            <p>Auction ends: {{ item[5] }}</p>
+            <p>Get it now price: {{ item[6] }}</p>
+            <p>Item Returnable: {{ item[7] }}</p>
+            <p>Listed By: {{ item[10] }}</p>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Button -->
+      <div class="form-group">
+        <label class="col-md-4 control-label"></label>
+        <div class="col-md-4"><br>
+          <button type="submit" class="btn btn-warning" ><span class="glyphicon glyphicon-send"></span>Submit</button>
+        </div>
+      </div>
+    </fieldset>
+    </form>
+  </div>
+</div><!-- /.container -->
+
+{% endblock %}

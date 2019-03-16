@@ -1,0 +1,3 @@
+flask_login_secret: hello_there
+
+DATABASE: dbname=team_009 user=postgres

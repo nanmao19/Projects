@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- based on example here: https://codepen.io/juff03/pen/OXaXRG -->
+<div class="container">
+  {% if not rated %}
+  <form class="well form-horizontal" action="{{ url_for('rating_template', item_ID=itemid) }}" method="post"  id="contact_form">
+    <fieldset>
+
+      <!-- Form Name -->
+      <legend><center><h2><b>Ratings</b></h2></center></legend><br>
+
+      <!-- Text input-->
+
+      <div class="row">
+        <label class="col-md-4 control-label">Item Name: {{itemname[0]}}</label>
+        <label class="col-md-4 control-label">Average Rating: {{stars}} Stars</label>
+      </div>
+
+      {% for review in reviews %}
+      <div class="well">
+        <div class="row">
+            <h4>Rater Name: {{ review[0] }}</h4>
+            <p>Comment: {{ review[2] }}</p>
+            <p>Stars: {{ review[3] }}</p>
+            <p>Time: {{ review[1] }}</p>
+        </div>
+      </div>
+      {% endfor %}
+
+      <div class="form-group">
+        <label class="col-md-4 control-label">Add a Rating</label>
+        <div class="col-md-4 inputGroupContainer">
+          <div class="input-group">
+            <textarea name="comment" class="form-control" rows="5" id="comment"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- TODO: Make dropdown with SQL select from category table -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" >Stars</label>
+        <div class="col-md-4 inputGroupContainer">
+          <div class="input-group">
+            <select name="stars" class="form-control" id="sel1">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Button -->
+      <div class="form-group">
+        <label class="col-md-4 control-label"></label>
+        <div class="col-md-4"><br>
+          <button type="submit" class="btn btn-warning">Submit Rating</button>
+        </div>
+      </div>
+    </fieldset>
+    </form>
+  </div>
+  {% endif %}
+
+  {% if rated %}
+  <form class="well form-horizontal" action="{{ url_for('delete_rating', item_ID=itemid) }}" method="POST"  id="contact_form">
+    <fieldset>
+
+      <!-- Form Name -->
+      <legend><center><h2><b>Ratings</b></h2></center></legend><br>
+
+      <!-- Text input-->
+
+      <div class="row">
+        <label class="col-md-4 control-label">Item Name: {{itemname[0]}}</label>
+        <label class="col-md-4 control-label">Average Rating: {{stars}}</label>
+      </div>
+
+      {% for review in reviews %}
+      <div class="well">
+        <div class="row">
+            <h4>Rater Name: {{ review[0] }}</h4>
+            <p>Comment: {{ review[2] }}</p>
+            <p>Stars: {{ review[3] }}</p>
+            <p>Time: {{ review[1] }}</p>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Button -->
+      <div class="form-group">
+        <label class="col-md-4 control-label"></label>
+        <div class="col-md-4"><br>
+          <button type="delete" class="btn btn-warning">Delete My Rating</button>
+        </div>
+      </div>
+    </fieldset>
+    </form>
+  </div>
+  {% endif %}
+</div><!-- /.container -->
+
+{% endblock %}

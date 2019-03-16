@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- based on example here: https://codepen.io/juff03/pen/OXaXRG -->
+<div class="container">
+  <form class="well form-horizontal" action="" method=""  id="contact_form">
+    <fieldset>
+
+      <!-- Form Name -->
+      <legend><center><h2><b>Search Results</b></h2></center></legend><br>
+
+      <!-- Text input-->
+	<style>
+	
+	table,th,td {
+		border:1px solid black;
+                padding: 3px;
+	}
+	</style>
+	
+	<table style="width:100%">
+	
+	<tr><th>ID</th><th>Item Name</th><th>Current Bid</th><th>High Bidder</th><th>Get It Now Price</th><th>Auction Ends</th><th>Link to Auction</th></tr>
+	
+	{% for item in results %}
+	<tr>
+          <td>{{item[0]}}</td>
+          <td>{{item[1]}}</td>
+          <td>{{item[2]}}</td>
+          <td>{{item[3]}}</td>
+          <td>{{item[4]}}</td>
+          <td>{{item[5].strftime('%m/%d/%Y %-I:%M%p')}}</td>
+          <td><a href="/auction/{{item[0]}}" class="btn btn-info">{{item[1]}}</a></td>
+        </tr>
+	{% endfor %}
+	</table>
+      <div class="form-group">
+        <label class="col-md-4 control-label"></label>
+        <div class="col-md-4"><br>
+          <a href="/item_search" class="btn btn-warning">Done</a>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+{% endblock %}

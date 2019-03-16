@@ -1,0 +1,8 @@
+.auctions {
+  padding-bottom: 10px;
+  background-color: blue;
+}
+
+table, th, td {
+  border: 1px solid black;
+}

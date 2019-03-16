@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- based on example here: https://codepen.io/juff03/pen/OXaXRG -->
+<div class="container">
+  <form class="well form-horizontal" action="{{ url_for('search_results') }}" method="post"  id="contact_form">
+    <fieldset>
+      
+      <!-- Form Name -->
+      <legend><center><h2><b>Item Search Form</b></h2></center></legend><br>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label">Keyword</label>
+        <div class="col-md-4 inputGroupContainer">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input  name="keyword" placeholder="Keyword" class="form-control"  type="text">
+          </div>
+        </div>
+      </div>
+
+      <!-- TODO: Make Category dropdown list with SQL select from category table -->
+	 <div class="form-group">
+        <label class="col-md-4 control-label" >Category</label>
+        <div class="col-md-4 inputGroupContainer">
+          <div class="input-group">
+            <select name="category" class="form-control" id="sel1">
+              <option value="" default>Select a Category</option>
+              {% for category in categories %}
+                <option>{{category[0]}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" >Minimum Price</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+              <span class="input-group-addon">$</span>
+              <input name="minimum_price" placeholder="$" class="form-control"  type="text">
+            </div>
+        </div>
+      </div>
+
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" >Maximum Price</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+              <span class="input-group-addon">$</span>
+              <input name="maximum_price" placeholder="$" class="form-control"  type="text">
+            </div>
+        </div>
+      </div>
+
+
+      <!-- TODO: Make Condition dropdown -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" >Condition at least</label>
+        <div class="col-md-4 inputGroupContainer">
+          <div class="input-group">
+            <select name="condition" class="form-control" id="sel1">
+              <option value="0" default>Select a Condition</option>
+              <option value="5">New</option>
+              <option value="4">Very Good</option>
+              <option value="3">Good</option>
+              <option value="2">Fair</option>
+              <option value="1">Poor</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Button -->
+    <div class="form-group">
+      <label class="col-md-4 control-label"></label>
+      <div class="col-md-4"><br>
+          <button type="submit" class="btn btn-info" name="submit" value="Submit"></span>Search</button>
+      </div>
+    </div>
+  </div>
+</div><!-- /.container -->
+
+{% endblock %}

@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- based on example here: https://codepen.io/juff03/pen/OXaXRG -->
+<div class="container">
+  <form class="well form-horizontal" action=" " method="post"  id="contact_form">
+    <fieldset>
+
+      <!-- Form Name -->
+      <legend><center><h2><b>List Item</b></h2></center></legend><br>
+
+      <!-- Text input-->
+
+      <div class="form-group">
+        <label class="col-md-4 control-label">Item Name</label>
+        <div class="col-md-4 inputGroupContainer">
+          <div class="input-group">
+            <input  name="item_name" placeholder="Item Name" class="form-control"  type="text">
+          </div>
+        </div>
+      </div>
+
+      <!-- Text input-->
+
+      <div class="form-group">
+        <label class="col-md-4 control-label" >Description</label>
+        <div class="col-md-4 inputGroupContainer">
+          <div class="input-group">
+            <textarea name="description" class="form-control" rows="5" id="comment"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- TODO: Make dropdown with SQL select from category table -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" >Condition</label>
+        <div class="col-md-4 inputGroupContainer">
+          <div class="input-group">
+            <select name="condition" class="form-control" id="sel1">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- TODO: Make dropdown with SQL select from category table -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" >Category</label>
+        <div class="col-md-4 inputGroupContainer">
+          <div class="input-group">
+            <select name="category" class="form-control" id="sel1">
+              {% for category in categories %}
+              <option>{{category[0]}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4 control-label" >Returnable</label>
+        <div class="col-md-4 inputGroupContainer">
+          <div class="input-group">
+            <select name="returnable" class="form-control" id="sel1">
+              <option>True</option>
+              <option>False</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text input-->
+
+      <div class="form-group">
+        <label class="col-md-4 control-label" >Starting Bid Price</label>
+        <div class="col-md-4 inputGroupContainer">
+          <div class="input-group">
+            <span class="input-group-addon">$</span>
+            <input name="starting_price" placeholder="$" class="form-control"  type="text">
+          </div>
+        </div>
+      </div>
+
+      <!-- Text input-->
+
+      <div class="form-group">
+        <label class="col-md-4 control-label" >Minimum Sale Price</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+              <span class="input-group-addon">$</span>
+              <input name="minimum_price" placeholder="$" class="form-control"  type="text">
+            </div>
+        </div>
+      </div>
+
+      <!-- Text input-->
+
+      <div class="form-group">
+        <label class="col-md-4 control-label" >Get It Now Price</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+              <span class="input-group-addon">$</span>
+              <input name="get_it_now_price" placeholder="$" class="form-control"  type="text">
+            </div>
+        </div>
+      </div>
+
+      <!-- Text input-->
+      <!-- TODO: Sanitize as dateTime (may need a picker) -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" >Ending Time</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+              <input name="ending_time" placeholder="Date" class="form-control"  type="text">
+            </div>
+        </div>
+      </div>
+
+      <!-- Button -->
+
+      <div class="form-group">
+        <label class="col-md-4 control-label"></label>
+        <div class="col-md-4"><br>
+          <button type="submit" class="btn btn-warning" ></span>List Item for Auction</button>
+        </div>
+      </div>
+    </fieldset>
+    </form>
+  </div>
+</div><!-- /.container -->
+
+{% endblock %}

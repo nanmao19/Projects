@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if itemID %}
+<div class="container">
+  <form class="well form-horizontal" action="{{ url_for('update_description', item_ID=itemID) }}" method="post"  id="contact_form">
+    <fieldset>
+
+      <!-- Form Name -->
+      <legend><center><h2><b>{{name}} auction</b></h2></center></legend><br>
+
+      <div class="row">
+        <div class="col-md-6 col-md-offset-1">
+          <h5>Item ID: <span>{{itemID}}</span></h5>
+          <h5>Item Name: <span>{{name}}</span></h5>
+        </div>
+        <div class="col-md-3 col-md-offset-1">
+          <h5>View Ratings</h5>
+          <a href="/rating/{{itemID}}" class="btn btn-warning button"></span>Click to View</a>
+        </div>
+
+      </div>
+      <hr />
+
+      <!-- Description -->
+      <div class="row">
+        <div class="col-md-6 col-md-offset-1">
+          <h5>Description</h5>
+          <textarea name="description" class="form-control" rows="5" id="comment">{{description}}</textarea>
+        </div>
+        {% if current_user.uid == seller %}
+        <div class="col-md-3 col-md-offset-1">
+          <h5>Edit Description</h5>
+          <button type="submit" class="btn btn-warning" name="submit" value="Submit"></span>Update Description</button>
+        </div>
+        {% endif %}
+      </div>
+      <hr />
+
+      <!-- Category, Condition, Returns -->
+      <div class="row">
+        <div class="col-md-4 col-md-offset-1">
+          <h5>Category: {{categoryname}}</h5>
+          <h5>
+            Condition:
+            {% if condition == 1 %}
+              <span>Poor</span>
+            {% elif condition == 2 %}
+              <span>Fair</span>
+            {% elif condition == 3 %}
+              <span>Good</span>
+            {% elif condition == 4 %}
+              <span>Very Good</span>
+            {% else %}
+              <span>New</span>
+            {% endif %}
+          </h5>
+          <h5> 
+            Returns Accepted? 
+            {% if returnable == True %}
+            <span><input type="checkbox" value="" checked onclick="return false;"></span>
+            {% else %}
+            <span><input type="checkbox" value="" onclick="return false;"></span>
+            {% endif %}
+          </h5>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+          {% if getitnowprice != None %}
+            <div class="col-md-2 col-md-offset-1">
+      <!-- Get it NOW! -->
+              <h5>Get it Now price:
+                <span>${{getitnowprice}}</span>
+              </h5>
+            </div>
+            <br />
+            <br />
+          {% endif %}
+          <div class="col-md-11 col-md-offset-1">
+            <h5>Auction Ends: {{endingtime.strftime('%m/%d/%Y %-I:%M%p')}}</h5>
+          </div>
+      </div>
+      <hr />
+
+       <!-- Latest Bids -->
+      <div class="row">
+        <h4 class="col-md-offset-1">Most Recent Bids</h4>
+        <div class="col-md-10 col-md-offset-1 bg-info" style="padding-bottom: 10px;">
+          {% if bids %}
+            <div class="col-md-2">
+              <h5>Price:</h5>
+              {%for bid in bids%}
+                <div>
+                  {{bid[0]}}
+                </div>
+              {% endfor %}
+            </div>
+            <div class="col-md-3">
+              <h5>Time of Bid:</h5>
+              {%for bid in bids%}
+                <div>
+                  {{bid[1].strftime('%m/%d/%Y %-I:%M%p')}}
+                </div>
+              {% endfor %}
+            </div>
+            <div class="col-md-2">
+              <h5>Bidder:</h5>
+              {%for bid in bids%}
+                <div>
+                  {{bid[2]}}
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="col-md-10">
+              <h2>No Bids!</h2>
+            </div>
+          {% endif %}
+          </div>
+        </div>
+    </fieldset>
+    </form>
+  </div>
+</div><!-- /.container -->
+
+{% endif %}
+{% endblock %}

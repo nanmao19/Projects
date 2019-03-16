@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <form class="well form-horizontal" action="" method=""  id="contact_form">
+    <fieldset>
+
+      <!-- Form Name -->
+      <legend><center><h2><b>Auction Result</b></h2></center></legend><br>
+
+	<style>
+	table,th,td {
+		border:1px solid black;
+                padding: 3px;
+	}
+	</style>
+	<table style="width:100%">
+	<tr><th>ID</th><th>Item Name</th><th>Winner</th><th>Sale Price</th><th>Auction Ended</th></tr>
+	{% for item in auctions %}
+	<tr><td>{{item[0]}}</td><td>{{item[1]}}</td>
+		{% if item[2]==none %}
+		<td>&nbsp;</td>
+		{% else %}
+		<td>{{item[2]}}</td>
+		{% endif %}
+		{% if item[3]==none %}
+		<td>&nbsp;</td>
+		{% else %}
+		<td>{{item[3]}}</td>
+		{% endif %}
+	<td>{{item[4]}}</td></tr>
+	{% endfor %}
+	</table>
+      <div class="form-group">
+        <label class="col-md-4 control-label"></label>
+        <div class="col-md-4"><br>
+          <a href="/item_search" class="btn btn-warning">Done</a>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+{% endblock %}

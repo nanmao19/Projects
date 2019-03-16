@@ -1,0 +1,16 @@
+# This is allows us to load the required files into a virtual environment using pip
+# To install all of these inside your virtual environment run the following from the 
+# flask_server directory:
+# pip install -r requirements.txt
+
+click==6.7
+Flask==0.12.2
+Flask-Cors==3.0.3
+Flask-Login==0.4.1
+itsdangerous==0.24
+Jinja2==2.10
+MarkupSafe==1.0
+psycopg2==2.7.4
+PyYAML==3.12
+six==1.11.0
+Werkzeug==0.14.1
