@@ -12,8 +12,5 @@ Finally, we'll add the database and related functionality.
 
 We'll add a requirement.txt document once we have specific software versions, as well as suggested installation instructions. It's recommended you do development in a virtual environment to manage your Python package versions.
 
-Add a new line here...
-Nan adds a line here...
-
 cp config/db.yaml.example config/db.yaml
 
