@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".Nurse">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="57dp"
+            android:layout_marginTop="35dp"
+            android:text="SBAR Recommendation"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <CheckBox
+            android:id="@+id/recommendation1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView11"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="50dp"
+            android:text="Facility Best Practice criteria met. Resident require UA and urine culture and UTI treatment unless other cause of fever clear"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/recommendation2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recommendation1"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="50dp"
+            android:text="Facility Best Practice criteria are NOT met to start antibiotic or obtain a UA/UC. Stewardship program guidance supports watchful waiting/hydration and resident DOES NOT need immediate antibiotic or UA/UC, but may need additional observation."
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/back_recommendation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recommendation2"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="50dp"
+            android:text="Back" />
+
+        <Button
+            android:id="@+id/submitfinal_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recommendation2"
+            android:layout_marginLeft="220dp"
+            android:layout_marginTop="50dp"
+            android:text="Submit" />
+
+    </RelativeLayout>
+</ScrollView>

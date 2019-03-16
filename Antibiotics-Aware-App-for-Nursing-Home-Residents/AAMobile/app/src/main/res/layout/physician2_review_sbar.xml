@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Physician">
+
+    <TextView
+        android:id="@+id/title_review"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Physician's Review"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="SBAR for Patient"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="24sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/get_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="24sp"
+        android:textStyle="bold|italic" />
+
+    <ScrollView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/details_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/button_layout"
+            android:orientation="vertical">
+
+            <!-- Date Fields -->
+            <TextView
+                android:id="@+id/details_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="Date: "
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/result_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="90dp"
+                android:layout_toEndOf="@id/details_date"
+                android:text="TestDate"
+                android:textSize="18sp" />
+
+            <!-- Patient Info Fields -->
+            <TextView
+                android:id="@+id/details_patient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/details_date"
+                android:text="Patient Info: "
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/result_patient_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/result_date"
+                android:layout_marginStart="40dp"
+                android:layout_toEndOf="@id/details_patient"
+                android:text="TestGender"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/result_patient_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/result_date"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@id/result_patient_gender"
+                android:text="TestAge"
+                android:textSize="18sp" />
+
+            <!-- Background Info Fields -->
+            <TextView
+                android:id="@+id/details_background"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/details_patient"
+                android:text="Background: "
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/result_background_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/result_patient_gender"
+                android:layout_marginStart="40dp"
+                android:layout_toEndOf="@id/details_background"
+                android:text="TestBG1"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/result_background_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/result_background_1"
+                android:layout_marginStart="40dp"
+                android:layout_toEndOf="@id/details_background"
+                android:text="TestBG2"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/result_background_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/result_background_2"
+                android:layout_marginStart="40dp"
+                android:layout_toEndOf="@id/details_background"
+                android:text="TestBG3"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/result_background_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/result_background_3"
+                android:layout_marginStart="40dp"
+                android:layout_toEndOf="@id/details_background"
+                android:text="TestBG4"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/result_background_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/result_background_4"
+                android:layout_marginStart="40dp"
+                android:layout_toEndOf="@id/details_background"
+                android:text="TestBG5"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/result_background_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/result_background_5"
+                android:layout_marginStart="40dp"
+                android:layout_toEndOf="@id/details_background"
+                android:text="TestBG6"
+                android:textSize="18sp" />
+
+            <!-- Vitals Fields -->
+            <TextView
+                android:id="@+id/details_vitals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/result_background_6"
+                android:layout_alignParentStart="true"
+                android:text="Vitals: "
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/vitals_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/details_vitals"
+                android:layout_marginStart="10dp"
+                android:text="TestVitals1"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/vitals_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vitals_1"
+                android:layout_marginStart="10dp"
+                android:text="TestVitals2"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/vitals_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vitals_2"
+                android:layout_marginStart="10dp"
+                android:text="TestVitals3"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/vitals_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vitals_3"
+                android:layout_marginStart="10dp"
+                android:text="TestVitals4"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/vitals_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vitals_4"
+                android:layout_marginStart="10dp"
+                android:text="TestVitals5"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/vitals_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vitals_5"
+                android:layout_marginStart="10dp"
+                android:text="TestVitals6"
+                android:textSize="18sp" />
+
+            <!-- Nurse Notes Fields -->
+            <TextView
+                android:id="@+id/details_notes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vitals_6"
+                android:layout_alignParentStart="true"
+                android:text="Nurse Notes: "
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/nurse_notes_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/details_notes"
+                android:layout_marginStart="10dp"
+                android:text="TestNotes1"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/nurse_notes_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/nurse_notes_1"
+                android:layout_marginStart="10dp"
+                android:text="TestNotes2"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/nurse_notes_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/nurse_notes_2"
+                android:layout_marginStart="10dp"
+                android:text="TestNotes3"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/nurse_notes_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/nurse_notes_3"
+                android:layout_marginStart="10dp"
+                android:text="TestNotes4"
+                android:textSize="18sp" />
+
+            <!-- Assessment Catheter Fields -->
+            <TextView
+                android:id="@+id/details_catheter_assessment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/nurse_notes_4"
+                android:layout_alignParentStart="true"
+                android:text="Assessment: "
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/result_catheter_assessment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/nurse_notes_4"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/details_catheter_assessment"
+                android:text="with or w/o Indwelling Catheter"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/result_catheter_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/result_catheter_assessment"
+                android:layout_marginStart="20dp"
+                android:text="Test1"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/result_catheter_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/result_catheter_1"
+                android:layout_marginStart="20dp"
+                android:text="Test2"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/result_catheter_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/result_catheter_2"
+                android:layout_marginStart="20dp"
+                android:text="Test3"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/result_catheter_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/result_catheter_3"
+                android:layout_marginStart="20dp"
+                android:text="Test4"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/result_catheter_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/result_catheter_4"
+                android:layout_marginStart="20dp"
+                android:text="Test5"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/result_catheter_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/result_catheter_5"
+                android:layout_marginStart="20dp"
+                android:text="Test6"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/result_catheter_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/result_catheter_6"
+                android:layout_marginStart="20dp"
+                android:text="Test7"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/result_catheter_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/result_catheter_7"
+                android:layout_marginStart="20dp"
+                android:text="Test8"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/result_catheter_9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/result_catheter_8"
+                android:layout_marginStart="20dp"
+                android:text="Test9"
+                android:textSize="18sp" />
+
+
+
+            <!-- Buttons @ the end of scroll view -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/result_catheter_9"
+                android:paddingTop="10dp">
+
+
+                <Button
+                    android:id="@+id/back_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="Back" />
+
+                <Button
+                    android:id="@+id/acknowledgement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="Acknowledge Reviewed" />
+
+            </TableRow>
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</LinearLayout>
