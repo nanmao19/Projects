@@ -13,4 +13,4 @@ MarkupSafe==1.0
 psycopg2==2.7.4
 PyYAML==3.12
 six==1.11.0
-Werkzeug==0.14.1
+Werkzeug==0.15.3
